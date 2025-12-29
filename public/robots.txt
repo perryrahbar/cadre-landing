@@ -1,0 +1,8 @@
+# Robots.txt for Cadre
+# https://www.drinkcadre.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.drinkcadre.com/sitemap.xml

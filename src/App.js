@@ -27,6 +27,12 @@ function App() {
       const data = await response.json();
 
       if (response.ok) {
+        // Track signup event in Google Analytics
+        if (window.gtag) {
+          window.gtag('event', 'sign_up', {
+            method: 'email'
+          });
+        }
         setSubmitted(true);
         setEmail('');
         setTimeout(() => {
