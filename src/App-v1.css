@@ -1,0 +1,338 @@
+/* Color Palette from Direction 1A */
+:root {
+  --burgundy: #6B1E3C;
+  --deep-burgundy: #4A1428;
+  --cream: #F5F1E8;
+  --beige: #D4C5B0;
+  --orange: #D85A2A;
+  --clay-court: #C17854;
+  --golden-hour: #E8A87C;
+  --dark-green: #2C5F4F;
+  --black: #0a0a0a;
+  --white: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Landing Container */
+.landing-container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2940&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Background Overlay */
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(107, 30, 60, 0.25) 0%,
+    rgba(74, 20, 40, 0.4) 50%,
+    rgba(107, 30, 60, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+/* Logo Section */
+.logo {
+  margin-bottom: 1rem;
+}
+
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  line-height: 1;
+}
+
+.tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.75rem, 1.5vw, 1rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--cream);
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtitle */
+.subtitle {
+  margin-bottom: 0.5rem;
+}
+
+.subtitle p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--beige);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Coming Soon */
+.coming-soon {
+  margin: 1.5rem 0;
+}
+
+.coming-soon h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Ingredients */
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 1.5rem 0 2rem;
+}
+
+.ingredients span {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--cream);
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  position: relative;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.ingredients span::after {
+  content: '•';
+  position: absolute;
+  right: -1rem;
+  color: var(--beige);
+}
+
+.ingredients span:last-child::after {
+  content: '';
+}
+
+/* Signup Section */
+.signup-section {
+  width: 100%;
+  max-width: 550px;
+  margin: 1.5rem 0;
+}
+
+.signup-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.email-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: var(--deep-burgundy);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.email-input::placeholder {
+  color: rgba(74, 20, 40, 0.5);
+}
+
+.email-input:focus {
+  outline: none;
+  border-color: var(--burgundy);
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 20px rgba(107, 30, 60, 0.3);
+}
+
+.submit-button {
+  padding: 1rem 2.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background-color: var(--burgundy);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.submit-button:hover {
+  background-color: var(--deep-burgundy);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(107, 30, 60, 0.5);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.success-message {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--white);
+  background-color: rgba(107, 30, 60, 0.8);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Footer Text */
+.footer-text {
+  margin-top: 1.5rem;
+}
+
+.footer-text p {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--beige);
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-wrapper {
+    gap: 1.2rem;
+    padding: 1.5rem;
+  }
+
+  .brand-name {
+    letter-spacing: 0.15em;
+  }
+
+  .tagline {
+    letter-spacing: 0.25em;
+  }
+
+  .ingredients {
+    gap: 1rem;
+  }
+
+  .signup-form {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .submit-button {
+    width: 100%;
+    padding: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    gap: 1rem;
+  }
+
+  .ingredients {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ingredients span::after {
+    content: '';
+  }
+
+  .logo {
+    margin-bottom: 0.5rem;
+  }
+
+  .coming-soon {
+    margin: 1rem 0;
+  }
+}
+
+@media (min-height: 900px) {
+  .content-wrapper {
+    gap: 2rem;
+  }
+
+  .logo {
+    margin-bottom: 1.5rem;
+  }
+
+  .coming-soon {
+    margin: 2rem 0;
+  }
+
+  .signup-section {
+    margin: 2rem 0;
+  }
+
+  .footer-text {
+    margin-top: 2rem;
+  }
+}
