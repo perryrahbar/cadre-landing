@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email } = req.body;
+  const { email, name } = req.body;
 
   // Validate email
   if (!email || !email.includes('@')) {
@@ -26,6 +26,9 @@ export default async function handler(req, res) {
       {
         email_address: email,
         status: 'subscribed',
+        merge_fields: {
+          FNAME: name || '',
+        },
       }
     );
 

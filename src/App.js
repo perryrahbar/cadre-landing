@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
 import tennisCourt from './tennis-court.jpg';
+import { ReactComponent as CadreLogo } from './cadre-logo.svg';
 
 function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,23 +24,20 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, name }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Track signup event in Google Analytics
         if (window.gtag) {
           window.gtag('event', 'sign_up', {
-            method: 'email'
+            method: 'email',
           });
         }
         setSubmitted(true);
+        setName('');
         setEmail('');
-        setTimeout(() => {
-          setSubmitted(false);
-        }, 5000);
       } else {
         setError(data.error || 'Something went wrong. Please try again.');
       }
@@ -48,59 +48,101 @@ function App() {
     }
   };
 
+  const closeModal = () => {
+    setModalOpen(false);
+    setSubmitted(false);
+    setError('');
+  };
+
   return (
     <div className="App">
       <div className="landing-container" style={{ backgroundImage: `url(${tennisCourt})` }}>
         <div className="background-overlay"></div>
 
-        <div className="content-wrapper">
-          <div className="logo">
-            <h1 className="brand-name">CADRE</h1>
-            <p className="tagline">A PREMIUM SPORTS BEVERAGE</p>
-          </div>
+        <header className="top-bar">
+          <CadreLogo className="logo" />
+        </header>
 
-          <div className="subtitle">
-            <p>Focus. Fuel. Hydration.</p>
-          </div>
+        <div className="hero">
+          <h2 className="hero-headline">
+            PREMIUM SPORTS BEVERAGE
+          </h2>
+        </div>
 
-          <div className="coming-soon">
-            <h2>COMING SOON</h2>
-          </div>
+        <footer className="bottom-bar">
+          <a
+            href="https://www.instagram.com/drinkcadre/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="instagram-link"
+          >
+            @DRINKCADRE
+          </a>
+          <p className="tagline">NEW FUEL FOR A NEW PHASE.</p>
+          <button className="signup-btn" onClick={() => setModalOpen(true)}>
+            SIGN UP
+          </button>
+        </footer>
+      </div>
 
-          <div className="ingredients">
-            <span>COCONUT WATER</span>
-            <span>HONEY</span>
-            <span>GREEN TEA EXTRACT</span>
-            <span>HIMALAYAN SALT</span>
-          </div>
+      {modalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>&times;</button>
 
-          <div className="signup-section">
-            <form className="signup-form" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                className="email-input"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="submit-button" disabled={loading}>
-                {loading ? 'Submitting...' : submitted ? 'Welcome to Cadre' : 'Notify Me'}
-              </button>
-            </form>
-            {submitted && (
-              <p className="success-message">
-                Thank you for joining. We'll be in touch soon.
-              </p>
-            )}
-            {error && (
-              <p className="error-message">
-                {error}
-              </p>
+            <div className="modal-brand">
+              <div className="brand-lines">
+                <div className="red-line"></div>
+                <div className="red-line"></div>
+              </div>
+              <CadreLogo className="modal-logo" />
+              <div className="brand-lines">
+                <div className="red-line"></div>
+                <div className="red-line"></div>
+              </div>
+            </div>
+
+            {!submitted ? (
+              <>
+                <p className="modal-text">
+                  JOIN OUR MAILING LIST
+                  FOR EXCLUSIVE INFO
+                  AND LIMITED LAUNCHES
+                </p>
+
+                <form className="modal-form" onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    className="modal-input"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <input
+                    type="email"
+                    className="modal-input"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <button type="submit" className="send-btn" disabled={loading}>
+                    {loading ? 'SENDING...' : 'SEND'}
+                  </button>
+                </form>
+
+                {error && <p className="error-message">{error}</p>}
+              </>
+            ) : (
+              <div className="success-content">
+                <p className="success-message">
+                  Thank you for joining.<br />We'll be in touch soon.
+                </p>
+              </div>
             )}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

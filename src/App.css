@@ -1,15 +1,25 @@
-/* Color Palette from Direction 1A */
+@font-face {
+  font-family: 'QTFrizQuad';
+  src: url('./fonts/QTFrizQuad.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PSTimes';
+  src: url('./fonts/PSTimes-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --burgundy: #6B1E3C;
   --deep-burgundy: #4A1428;
-  --cream: #F5F1E8;
-  --beige: #D4C5B0;
-  --orange: #D85A2A;
-  --clay-court: #C17854;
-  --golden-hour: #E8A87C;
-  --dark-green: #2C5F4F;
-  --black: #0a0a0a;
+  --red-accent: #C0392B;
   --white: #FFFFFF;
+  --black: #1a1a1a;
 }
 
 * {
@@ -38,230 +48,290 @@ html, body, #root {
   background-position: center center;
   background-repeat: no-repeat;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   overflow: hidden;
 }
 
-/* Background Overlay */
+/* Flat dark overlay for text legibility */
 .background-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(107, 30, 60, 0.3) 0%,
-    rgba(74, 20, 40, 0.45) 50%,
-    rgba(74, 20, 40, 0.6) 100%
-  );
+  background: rgba(0, 0, 0, 0.15);
   z-index: 1;
 }
 
-/* Content Wrapper */
-.content-wrapper {
+/* Top Bar — CADRE logo */
+.top-bar {
   position: relative;
   z-index: 2;
-  text-align: center;
-  padding: 2rem;
-  max-width: 900px;
-  width: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem 3rem;
+}
+
+.logo {
+  width: clamp(150px, 17.6vw, 253px);
+  height: auto;
+}
+
+/* Hero — large bold serif headline */
+.hero {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  padding: 0 3rem;
 }
 
-/* Logo Section */
-.logo {
-  margin-bottom: 1rem;
-}
-
-.brand-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(4rem, 12vw, 8rem);
-  font-weight: 300;
-  letter-spacing: 0.2em;
+.hero-headline {
+  font-family: 'QTFrizQuad', serif;
+  font-size: clamp(3.5rem, 8.33vw, 120px);
+  font-weight: normal;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
   color: var(--white);
-  margin-bottom: 0.5rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  line-height: 1;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 71%;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.8rem 3rem;
+}
+
+.instagram-link {
+  font-family: 'QTFrizQuad', serif;
+  font-size: clamp(0.7rem, 1.25vw, 1.125rem);
+  font-weight: normal;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  text-decoration: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease;
+}
+
+.instagram-link:hover {
+  opacity: 0.7;
 }
 
 .tagline {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.75rem, 1.5vw, 1rem);
-  font-weight: 400;
-  letter-spacing: 0.3em;
+  font-family: 'QTFrizQuad', serif;
+  font-size: clamp(0.75rem, 1.39vw, 1.25rem);
+  font-weight: normal;
+  letter-spacing: 0.1em;
   color: var(--white);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Subtitle */
-.subtitle {
+.signup-btn {
+  font-family: 'QTFrizQuad', serif;
+  font-size: clamp(0.65rem, 1.11vw, 1rem);
+  font-weight: normal;
+  letter-spacing: 0.1em;
+  color: #8b011b;
+  background-color: var(--white);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.signup-btn:hover {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal Card */
+.modal-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 19px;
+  padding: 3.5rem 2.5rem 3rem;
+  max-width: 573px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+/* Modal Brand — CADRE logo flanked by double red lines */
+.modal-brand {
+  display: flex;
+  align-items: center;
+  gap: 0;
   margin-bottom: 2.5rem;
 }
 
-.subtitle p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--white);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* Coming Soon */
-.coming-soon {
-  margin: 2.5rem 0 1.5rem;
-}
-
-.coming-soon h2 {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  color: var(--white);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Ingredients */
-.ingredients {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  margin: 1.5rem 0 2rem;
-}
-
-.ingredients span {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  color: var(--white);
-  text-transform: uppercase;
-  padding: 0.5rem 0;
-  position: relative;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.ingredients span::after {
-  content: '•';
-  position: absolute;
-  right: -1rem;
-  color: var(--beige);
-}
-
-.ingredients span:last-child::after {
-  content: '';
-}
-
-/* Signup Section */
-.signup-section {
-  width: 100%;
-  max-width: 550px;
-  margin: 1.5rem 0;
-}
-
-.signup-form {
+.brand-lines {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 4px;
 }
 
-.email-input {
-  flex: 1;
-  padding: 1rem 1.5rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  background-color: transparent;
-  border: none;
-  border-bottom: 3px solid rgba(255, 255, 255, 0.6);
-  border-radius: 0;
-  color: var(--white);
-  text-align: center;
-  transition: all 0.3s ease;
+.red-line {
+  width: 100%;
+  height: 14px;
+  background-color: #9c0004;
 }
 
-.email-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 600;
-  letter-spacing: 0.05em;
+.modal-logo {
+  width: 222px;
+  height: auto;
+  padding: 0 0.6rem;
+  --fill-0: #9c0004;
 }
 
-.email-input:focus {
-  outline: none;
-  border-bottom-color: var(--white);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.submit-button {
-  padding: 0.9rem 2rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
+/* Modal Text */
+.modal-text {
+  font-family: 'QTFrizQuad', serif;
+  font-size: 1.375rem;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: #9c0004;
+  margin-bottom: 2.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  background-color: var(--burgundy);
-  color: var(--white);
+  max-width: 255px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Modal Form */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.modal-input {
+  width: 94%;
+  padding: 0.8rem 0;
+  font-family: 'PSTimes', serif;
+  font-size: 1.25rem;
+  font-weight: normal;
+  color: #9c0004;
+  background: transparent;
   border: none;
-  border-radius: 4px;
+  border-bottom: 1.5px solid #9c0004;
+  text-align: center;
+  transition: border-color 0.3s ease;
+}
+
+.modal-input::placeholder {
+  color: #9c0004;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-bottom-color: #9c0004;
+}
+
+.send-btn {
+  margin-top: 3rem;
+  padding: 0.6rem 0;
+  width: 222px;
+  font-family: 'QTFrizQuad', serif;
+  font-size: 1.375rem;
+  font-weight: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  background-color: #9c0004;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  white-space: nowrap;
-  align-self: center;
 }
 
-.submit-button:hover {
+.send-btn:hover {
   background-color: var(--deep-burgundy);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(107, 30, 60, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(107, 30, 60, 0.4);
 }
 
-.submit-button:active {
-  transform: translateY(0);
-}
-
-.submit-button:disabled {
+.send-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
+/* Success & Error */
+.success-content {
+  padding: 1rem 0;
+}
+
 .success-message {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  color: var(--white);
-  background-color: rgba(107, 30, 60, 0.8);
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  text-align: center;
-  animation: fadeIn 0.5s ease;
-  backdrop-filter: blur(10px);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--burgundy);
+  line-height: 1.6;
 }
 
 .error-message {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  color: var(--white);
-  background-color: rgba(216, 90, 42, 0.8);
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  text-align: center;
-  animation: fadeIn 0.5s ease;
-  backdrop-filter: blur(10px);
+  font-size: 0.8rem;
+  color: #c0392b;
+  margin-top: 1rem;
 }
 
+/* Animations */
 @keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -269,107 +339,73 @@ html, body, #root {
   }
 }
 
-/* Footer Text */
-.footer-text {
-  margin-top: 1.5rem;
-}
-
-.footer-text p {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  color: var(--beige);
-  text-transform: uppercase;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Responsive Design */
+/* Tablet */
 @media (max-width: 768px) {
-  .content-wrapper {
-    gap: 1rem;
-    padding: 1.5rem;
+  .top-bar {
+    padding: 1.8rem 2rem;
   }
 
-  .brand-name {
-    letter-spacing: 0.15em;
+  .hero {
+    padding: 0 2rem;
+  }
+
+  .hero-headline {
+    max-width: 90%;
+  }
+
+  .bottom-bar {
+    padding: 1.2rem 2rem;
+  }
+
+  .modal-card {
+    padding: 2.5rem 2rem;
+  }
+
+  .modal-input {
+    width: 80%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .top-bar {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .hero {
+    padding: 0 1.5rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.8rem, 13vw, 4.5rem);
+    max-width: 100%;
+  }
+
+  .bottom-bar {
+    padding: 1rem 1.5rem;
+    gap: 0.5rem;
   }
 
   .tagline {
-    letter-spacing: 0.25em;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
   }
 
-  .ingredients {
-    gap: 1rem;
-    margin: 1.2rem 0 1.8rem;
+  .instagram-link {
+    font-size: 0.6rem;
   }
 
-  .ingredients span {
-    font-size: 0.7rem;
+  .signup-btn {
+    font-size: 0.6rem;
+    padding: 0.4rem 1rem;
   }
 
-  .signup-form {
-    flex-direction: column;
-    gap: 0.75rem;
+  .modal-card {
+    padding: 2rem 1.5rem;
+    width: 92%;
   }
 
-  .submit-button {
-    width: 100%;
-    padding: 1.1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .content-wrapper {
-    gap: 0.8rem;
-  }
-
-  .ingredients {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    margin: 1rem 0 1.5rem;
-  }
-
-  .ingredients span {
-    font-size: 0.65rem;
-  }
-
-  .ingredients span::after {
-    right: -0.5rem;
-  }
-
-  .logo {
-    margin-bottom: 0.3rem;
-  }
-
-  .coming-soon {
-    margin: 0.8rem 0;
-  }
-
-  .signup-section {
-    margin: 1rem 0;
-  }
-}
-
-@media (min-height: 900px) {
-  .content-wrapper {
-    gap: 2rem;
-  }
-
-  .logo {
-    margin-bottom: 1.5rem;
-  }
-
-  .coming-soon {
-    margin: 2rem 0;
-  }
-
-  .signup-section {
-    margin: 2rem 0;
-  }
-
-  .footer-text {
-    margin-top: 2rem;
+  .modal-input {
+    width: 90%;
   }
 }
